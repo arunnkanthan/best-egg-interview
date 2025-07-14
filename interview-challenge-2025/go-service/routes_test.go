@@ -87,3 +87,58 @@ func TestGetPackageRoute(t *testing.T) {
 	assert.Contains(t, w.Body.String(), "New York")
 	assert.Contains(t, w.Body.String(), "timestamp")
 }
+
+func TestGetPackageByID_Basic(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	fetchPackageByIDFunc := fetchPackageByID
+	fetchPackageByID = func(id string) (*Package, error) {
+		if id == "PKG1" {
+			return &Package{
+				TrackingID:  "PKG1",
+				Status:      "Delivered",
+				Carrier:     "UPS",
+				Eta:         time.Now(),
+				LastUpdated: time.Now(),
+				CurrentCity: "New York",
+			}, nil
+		}
+		return nil, fmt.Errorf("not found")
+	}
+	defer func() { fetchPackageByID = fetchPackageByIDFunc }()
+
+	r := gin.Default()
+	r.GET("/packages/:tracking_id", GetPackageByID)
+
+	t.Run("found", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("GET", "/packages/PKG1", nil)
+		r.ServeHTTP(w, req)
+		assert.Equal(t, 200, w.Code)
+		assert.Contains(t, w.Body.String(), "PKG1")
+	})
+
+	t.Run("not found", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("GET", "/packages/UNKNOWN", nil)
+		r.ServeHTTP(w, req)
+		assert.Equal(t, 404, w.Code)
+	})
+}
+
+func TestGetCarriers_Basic(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	fetchCarriersFunc := fetchCarriers
+	fetchCarriers = func() ([]Carrier, error) {
+		return []Carrier{{Code: "UPS", Name: "United Parcel Service"}}, nil
+	}
+	defer func() { fetchCarriers = fetchCarriersFunc }()
+
+	r := gin.Default()
+	r.GET("/carriers", GetCarriers)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/carriers", nil)
+	r.ServeHTTP(w, req)
+	assert.Equal(t, 200, w.Code)
+	assert.Contains(t, w.Body.String(), "UPS")
+}
