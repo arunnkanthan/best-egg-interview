@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 const mockAPIBase = "http://localhost:8080"
@@ -13,7 +14,9 @@ var fetchPackageByID = realFetchPackageByID
 var fetchCarriers = realFetchCarriers
 
 func realFetchAllPackages() ([]Package, error) {
-	resp, err := http.Get(fmt.Sprintf("%s/tracking", mockAPIBase))
+	resp, err := DoRequestWithRetry(func() (*http.Response, error) {
+		return http.Get(fmt.Sprintf("%s/tracking", mockAPIBase))
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +33,9 @@ func realFetchAllPackages() ([]Package, error) {
 }
 
 func realFetchPackageByID(id string) (*Package, error) {
-	resp, err := http.Get(fmt.Sprintf("%s/tracking/%s", mockAPIBase, id))
+	resp, err := DoRequestWithRetry(func() (*http.Response, error) {
+		return http.Get(fmt.Sprintf("%s/tracking/%s", mockAPIBase, id))
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +53,9 @@ func realFetchPackageByID(id string) (*Package, error) {
 }
 
 func realFetchCarriers() ([]Carrier, error) {
-	resp, err := http.Get(fmt.Sprintf("%s/carriers", mockAPIBase))
+	resp, err := DoRequestWithRetry(func() (*http.Response, error) {
+		return http.Get(fmt.Sprintf("%s/carriers", mockAPIBase))
+	})
 	if err != nil {
 		return nil, err
 	}
