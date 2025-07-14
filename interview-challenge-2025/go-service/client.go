@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
+	"strings"
 )
 
 const mockAPIBase = "http://localhost:8080"
@@ -12,6 +12,7 @@ const mockAPIBase = "http://localhost:8080"
 var fetchAllPackages = realFetchAllPackages
 var fetchPackageByID = realFetchPackageByID
 var fetchCarriers = realFetchCarriers
+var fetchLocation = realFetchLocation
 
 func realFetchAllPackages() ([]Package, error) {
 	resp, err := DoRequestWithRetry(func() (*http.Response, error) {
@@ -66,4 +67,26 @@ func realFetchCarriers() ([]Carrier, error) {
 		return nil, err
 	}
 	return carriers, nil
+}
+
+func realFetchLocation(city string) (*Location, error) {
+	url := fmt.Sprintf("%s/locations/%s", mockAPIBase, urlEncodeCity(city))
+	resp, err := DoRequestWithRetry(func() (*http.Response, error) {
+		return http.Get(url)
+	})
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var loc Location
+	if err := json.NewDecoder(resp.Body).Decode(&loc); err != nil {
+		return nil, err
+	}
+	return &loc, nil
+}
+
+func urlEncodeCity(city string) string {
+	// Replace spaces with %20 for URL encoding
+	return strings.ReplaceAll(city, " ", "%20")
 } 

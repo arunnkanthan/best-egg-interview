@@ -4,12 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"sort"
 	"strconv"
+	"time"
 )
 
 func RegisterRoutes(r *gin.Engine) {
 	r.GET("/packages", GetPackages)
 	r.GET("/packages/:tracking_id", GetPackageByID)
 	r.GET("/carriers", GetCarriers)
+	r.GET("/packages/:tracking_id/route", GetPackageRoute) // route is a simulation of the package's route, bonus requirement
 }
 
 // Handler stubs
@@ -88,4 +90,37 @@ func GetCarriers(c *gin.Context) {
 		return
 	}
 	c.JSON(200, carriers)
+}
+
+func GetPackageRoute(c *gin.Context) {
+	id := c.Param("tracking_id")
+	pkg, err := fetchPackageByID(id)
+	if err != nil {
+		c.JSON(404, gin.H{"error": "Package not found"})
+		return
+	}
+
+	// Simulate a route: pick 2-3 cities including the current city
+	cities := []string{"Chicago", "Philadelphia", pkg.CurrentCity}
+	startTime := pkg.LastUpdated.Add(-48 * time.Hour) // simulate 2 days before last update
+	eta := pkg.Eta
+	interval := eta.Sub(startTime) / time.Duration(len(cities))
+
+	route := make([]gin.H, 0, len(cities))
+	for i, city := range cities {
+		loc, err := fetchLocation(city)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Failed to fetch location for " + city})
+			return
+		}
+		timestamp := startTime.Add(time.Duration(i) * interval)
+		route = append(route, gin.H{
+			"city":      loc.City,
+			"lat":       loc.Latitude,
+			"lon":       loc.Longitude,
+			"timestamp": timestamp.Format(time.RFC3339),
+		})
+	}
+
+	c.JSON(200, gin.H{"route": route})
 } 
