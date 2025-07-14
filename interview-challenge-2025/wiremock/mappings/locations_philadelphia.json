@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/locations/philadelphia"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "city": "Philadelphia",
+      "state": "PA",
+      "timezone": "EST",
+      "lat": 39.9526,
+      "lon": -75.1652
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

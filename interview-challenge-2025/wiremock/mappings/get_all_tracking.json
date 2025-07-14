@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/tracking"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "packages": [
+        {
+          "tracking_id": "PKG123456",
+          "carrier": "UPS",
+          "status": "In Transit",
+          "eta": "2025-06-15T18:00:00Z",
+          "last_updated": "2025-06-12T09:30:00Z",
+          "current_city": "Philadelphia"
+        },
+        {
+          "tracking_id": "PKG789101",
+          "carrier": "FEDEX",
+          "status": "Delivered",
+          "eta": "2025-06-10T16:00:00Z",
+          "last_updated": "2025-06-10T15:45:00Z",
+          "current_city": "New York"
+        },
+        {
+          "tracking_id": "PKG112131",
+          "carrier": "USPS",
+          "status": "Out for Delivery",
+          "eta": "2025-06-13T13:00:00Z",
+          "last_updated": "2025-06-12T08:00:00Z",
+          "current_city": "Chicago"
+        },
+        {
+          "tracking_id": "PKG189798",
+          "carrier": "USPS",
+          "status": "In Transit",
+          "eta": "2025-06-20T13:00:00Z",
+          "last_updated": "2025-06-15T10:00:00Z",
+          "current_city": "San Francisco"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

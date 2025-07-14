@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/tracking/PKGFAIL001"
+  },
+  "response": {
+    "status": 500,
+    "body": "Simulated service failure"
+  }
+}

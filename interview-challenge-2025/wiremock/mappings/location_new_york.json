@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/locations/new%20york"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "city": "New York",
+      "state": "NY",
+      "timezone": "EST",
+      "lat": 40.7128,
+      "lon": -74.0060
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

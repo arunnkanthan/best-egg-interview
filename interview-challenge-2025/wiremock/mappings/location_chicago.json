@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/locations/chicago"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "city": "Chicago",
+      "state": "IL",
+      "timezone": "CST",
+      "lat": 41.8781,
+      "lon": -87.6298
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

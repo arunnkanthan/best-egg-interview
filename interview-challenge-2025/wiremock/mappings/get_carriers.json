@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/carriers"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "carriers": [
+        {"id": "UPS", "name": "United Parcel Service"},
+        {"id": "FEDEX", "name": "FedEx"},
+        {"id": "USPS", "name": "United States Postal Service"}
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

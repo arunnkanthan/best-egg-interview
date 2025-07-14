@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/locations/san%20francisco"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "city": "San Francisco",
+      "state": "CA",
+      "timezone": "PST",
+      "lat": 37.7749,
+      "lon": -122.4194
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
