@@ -11,7 +11,7 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET("/packages", GetPackages)
 	r.GET("/packages/:tracking_id", GetPackageByID)
 	r.GET("/carriers", GetCarriers)
-	r.GET("/packages/:tracking_id/route", GetPackageRoute) // route is a simulation of the package's route, bonus requirement
+	r.GET("/packages/:tracking_id/route", GetPackageRoute) // route is a simulation of the package's route no wiremock, bonus requirement
 }
 
 // Handler stubs

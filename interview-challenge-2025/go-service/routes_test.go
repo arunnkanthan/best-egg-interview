@@ -129,7 +129,7 @@ func TestGetCarriers_Basic(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	fetchCarriersFunc := fetchCarriers
 	fetchCarriers = func() ([]Carrier, error) {
-		return []Carrier{{Code: "UPS", Name: "United Parcel Service"}}, nil
+		return []Carrier{{ID: "UPS", Name: "United Parcel Service"}}, nil
 	}
 	defer func() { fetchCarriers = fetchCarriersFunc }()
 

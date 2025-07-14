@@ -14,7 +14,7 @@ type Package struct {
 
 // Carrier represents a shipping carrier
 type Carrier struct {
-	Code string `json:"code"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 

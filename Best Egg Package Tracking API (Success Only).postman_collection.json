@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "d59b6b9e-3b3e-4bbb-9a0c-d92f7a6a7215",
+		"name": "Best Egg Package Tracking API (Success Only)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46753022",
+		"_collection_link": "https://arunn-4816160.postman.co/workspace/Arunn's-Workspace~4a144a2e-f979-42ea-8a11-90ac73e2b662/collection/46753022-d59b6b9e-3b3e-4bbb-9a0c-d92f7a6a7215?action=share&source=collection_link&creator=46753022"
+	},
+	"item": [
+		{
+			"name": "Get All Packages (paginated)*",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/packages?status=Delivered&sort=eta&page=1&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"packages"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Delivered"
+						},
+						{
+							"key": "sort",
+							"value": "eta"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Package by Tracking ID (PKG123456)*",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/packages/PKGFAIL001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"packages",
+						"PKGFAIL001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Carriers*",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/carriers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"carriers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

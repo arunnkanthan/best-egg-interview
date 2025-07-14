@@ -62,11 +62,14 @@ func realFetchCarriers() ([]Carrier, error) {
 	}
 	defer resp.Body.Close()
 
-	var carriers []Carrier
-	if err := json.NewDecoder(resp.Body).Decode(&carriers); err != nil {
+	type carriersResponse struct {
+		Carriers []Carrier `json:"carriers"`
+	}
+	var cr carriersResponse
+	if err := json.NewDecoder(resp.Body).Decode(&cr); err != nil {
 		return nil, err
 	}
-	return carriers, nil
+	return cr.Carriers, nil
 }
 
 func realFetchLocation(city string) (*Location, error) {

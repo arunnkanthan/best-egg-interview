@@ -58,3 +58,13 @@ go test
 ```
 
 You can add more tests in `routes_test.go` using the same mocking approach. 
+
+## Postman Collection for API Testing
+
+A ready-to-use Postman collection is available to help you test all API endpoints quickly and match to workmock mappings
+
+**How to use:**
+1. Download or copy the provided Postman collection JSON file (e.g., `BestEgg-SuccessOnly.postman_collection.json`).
+2. Open Postman, click **Import**, and select the file.
+3. All endpoints will be available for you to test against your running service at `http://localhost:3000`.
+
