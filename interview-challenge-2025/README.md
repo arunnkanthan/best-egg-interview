@@ -11,9 +11,19 @@ Your task is to build a FastAPI-based microservice that integrates with a mocked
 ## Your Microservice Should Include
 
 - `GET /packages/{tracking_id}` – Fetch detailed tracking info using the mock API
-- `GET /packages` – Return a list of all known packages
-- Support filtering by status (e.g., `?status=Delivered`)
-- Support sorting by `eta` or `last_updated` (e.g., `?sort=eta`)
+- `GET /packages` – Return a paginated list of all known packages
+    - Supports filtering by status (e.g., `?status=Delivered`)
+    - Supports sorting by `eta` or `last_updated` (e.g., `?sort=eta`)
+    - Supports pagination with `page` and `limit` query parameters (e.g., `?page=2&limit=5`)
+    - The response includes:
+      ```json
+      {
+        "packages": [ ... ],
+        "page": 1,
+        "limit": 10,
+        "total": 42
+      }
+      ```
 - `GET /carriers` – Return a list of supported carriers from the mock API
 
 ## Requirements

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"sort"
+	"strconv"
 )
 
 func RegisterRoutes(r *gin.Engine) {
@@ -43,7 +44,31 @@ func GetPackages(c *gin.Context) {
 		})
 	}
 
-	c.JSON(200, packages)
+	// Pagination
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 {
+		limit = 10
+	}
+	start := (page - 1) * limit
+	end := start + limit
+	if start > len(packages) {
+		start = len(packages)
+	}
+	if end > len(packages) {
+		end = len(packages)
+	}
+	paginated := packages[start:end]
+
+	c.JSON(200, gin.H{
+		"packages": paginated,
+		"page": page,
+		"limit": limit,
+		"total": len(packages),
+	})
 }
 
 func GetPackageByID(c *gin.Context) {
